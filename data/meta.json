@@ -1,0 +1,125 @@
+{
+ "season": "2026/27",
+ "updated": "2026-09-27",
+ "last_match": "2026-09-20",
+ "phi": 1.6127,
+ "leagues": [
+  {
+   "div": "E0",
+   "name": "Premier League",
+   "logo": "logos/leagues/E0.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "upcoming": 6,
+   "matches": 50,
+   "upcoming_matches": 0,
+   "predicted": 47
+  },
+  {
+   "div": "SP1",
+   "name": "La Liga",
+   "logo": "logos/leagues/SP1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+   ],
+   "upcoming": 8,
+   "matches": 69,
+   "upcoming_matches": 0,
+   "predicted": 66
+  },
+  {
+   "div": "I1",
+   "name": "Serie A",
+   "logo": "logos/leagues/I1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "upcoming": 6,
+   "matches": 50,
+   "upcoming_matches": 0,
+   "predicted": 50
+  },
+  {
+   "div": "D1",
+   "name": "Bundesliga",
+   "logo": "logos/leagues/D1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4
+   ],
+   "upcoming": 5,
+   "matches": 36,
+   "upcoming_matches": 0,
+   "predicted": 33
+  },
+  {
+   "div": "F1",
+   "name": "Ligue 1",
+   "logo": "logos/leagues/F1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5
+   ],
+   "upcoming": 6,
+   "matches": 45,
+   "upcoming_matches": 0,
+   "predicted": 42
+  }
+ ]
+}
