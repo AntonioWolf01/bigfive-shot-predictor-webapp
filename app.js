@@ -215,8 +215,10 @@ async function renderContent() {
   if (state.league !== lg || state.week !== week) return;      // the user moved on
 
   const block = doc.weeks.find((w) => w.week === week);
+  // in kick-off order; matches at the same time by home team
   const matches = [...block.matches].sort((a, b) =>
-    a.home.name.localeCompare(b.home.name, "en", { sensitivity: "base" }));
+    (a.kickoff || a.date).localeCompare(b.kickoff || b.date)
+    || a.home.name.localeCompare(b.home.name, "en", { sensitivity: "base" }));
   const dates = matches.map((m) => when(m).day).sort();
 
   main.replaceChildren(
