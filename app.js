@@ -265,8 +265,13 @@ function chevron() {
 function toggle(card, row, m) {
   const inner = card.querySelector(".inner");
   if (!inner.childElementCount) {
-    inner.append(el("div", { class: "panels" }, teamPanel(m.home, "home", m.played), teamPanel(m.away, "away", m.played)));
+    inner.append(el("div", { class: "panels" },
+      teamPanel(m.home, "home", m.played, m.odds), teamPanel(m.away, "away", m.played, m.odds)));
     if (m.note) inner.append(el("p", { class: "note", text: m.note }));
+    const nBets = (m.home.bets || []).length + (m.away.bets || []).length;
+    if (m.odds && nBets) inner.append(el("p", { class: "bets-note", text: BETS_NOTE }));
+    else if (m.odds) inner.append(el("p", { class: "note", text: "No value bets available for this match." }));
+    else if (!m.played) inner.append(el("p", { class: "note", text: "Odds not published yet." }));
   }
   const open = !card.classList.contains("open");
   card.classList.toggle("open", open);
@@ -278,11 +283,13 @@ function toggle(card, row, m) {
 
 // --------------------------------------------------------------- team panel
 
-function teamPanel(side, venue, played) {
+function teamPanel(side, venue, played, hasOdds) {
   const top = el("div", { class: "panel-top" },
     logo(side),
     el("div", { class: "team-name", text: side.name }),
     el("div", { class: "side", text: venue === "home" ? "Home" : "Away" }));
+  // the value bets of this team; null: no odds known, so no section at all
+  const bets = hasOdds ? side.bets || [] : null;
 
   if (!played) {
     const phi = state.meta.phi, mu = side.expected;
@@ -290,7 +297,7 @@ function teamPanel(side, venue, played) {
       el("div", { class: "actual" },
         el("div", { class: "label", text: "Expected shots" }),
         el("div", { class: "actual-value", text: mu.toFixed(1) })),
-      distribution(nbPmf(mu, phi, 80), mu, null, phi));
+      distribution(nbPmf(mu, phi, 80), mu, null, phi, bets));
   }
 
   const panel = el("section", { class: `panel ${venue}` }, top,
@@ -314,18 +321,45 @@ function teamPanel(side, venue, played) {
     el("div", {}, el("span", { text: `Under ${(y + 0.5).toFixed(1)}` }), el("b", { text: pct(under) })));
   actual.append(odds, el("p", { class: "odds-caption", text: "Chance of this result, before kick-off" }));
 
-  panel.append(distribution(pmf, mu, y, phi));
+  panel.append(distribution(pmf, mu, y, phi, bets));
   return panel;
+}
+
+// --------------------------------------------------------------- value bets
+
+const BETS_NOTE = "A line is a value bet when model probability × odds is at least 1.03. "
+  + "Stake: full Kelly, (probability × odds − 1) / (odds − 1), as a share of the budget.";
+
+const signedPct = (x) => `${x >= 0 ? "+" : "−"}${(100 * Math.abs(x)).toFixed(1)}%`;
+const betName = (b) => `${b.side === "over" ? "Over" : "Under"} ${b.line.toFixed(1)}`;
+
+/** The team's value bets; a row moves the chart's line to that bet. */
+function betList(bets, goTo) {
+  if (!bets.length) return el("p", { class: "bets-none", text: "No value bets for this team." });
+  return el("div", { class: "bets" },
+    el("div", { class: "label", text: "Value bets" }),
+    el("div", { class: "bet head", "aria-hidden": "true" },
+      el("span", { text: "Line" }), el("span", { text: "Odds" }),
+      el("span", { text: "Edge" }), el("span", { text: "Stake" })),
+    bets.map((b) => el("button", {
+      class: "bet", type: "button", onclick: () => goTo(b.line),
+      title: `Model ${pct(b.p)} · show on the chart`,
+      "aria-label": `${betName(b)} at ${b.odds.toFixed(2)}: model ${pct(b.p)}, edge ${signedPct(b.edge)}, `
+        + `stake ${pct(b.kelly)} of the budget. Show on the chart.`,
+    },
+    el("span", { text: betName(b) }), el("span", { text: b.odds.toFixed(2) }),
+    el("span", { text: signedPct(b.edge) }), el("b", { text: pct(b.kelly) }))));
 }
 
 // -------------------------------------------------------------------- chart
 
-function distribution(pmf, mu, y, phi) {
+function distribution(pmf, mu, y, phi, bets = null) {
   const sd = Math.sqrt(phi * mu);
   const half = Math.max(8, Math.ceil(3 * sd));
   const c = Math.round(mu);
-  const kmin = Math.max(0, y == null ? c - half : Math.min(c - half, y));
-  const kmax = y == null ? c + half : Math.max(c + half, y);
+  const lines = (bets || []).map((b) => b.line);
+  const kmin = Math.max(0, Math.min(y == null ? c - half : Math.min(c - half, y), ...lines.map(Math.floor)));
+  const kmax = Math.min(pmf.length - 1, Math.max(y == null ? c + half : Math.max(c + half, y), ...lines.map(Math.ceil)));
   let line = Math.min(Math.max(Math.floor(mu) + 0.5, kmin + 0.5), kmax - 0.5);
 
   const readLine = el("b");
@@ -346,7 +380,9 @@ function distribution(pmf, mu, y, phi) {
     y == null ? null : el("span", {}, el("span", { class: "key act" }), "Actual shots"),
     el("span", {}, el("span", { class: "key exp" }), "Expected shots"));
 
-  const block = el("div", { class: "chart-block" }, readout, chart, sliderWrap, legend);
+  const goTo = (v) => { slider.value = v; setLine(v); };
+  const block = el("div", { class: "chart-block" }, readout, chart, sliderWrap, legend,
+    bets ? betList(bets, goTo) : null);
 
   let bars = [], cut = null, x = null, shown = { over: null, under: null };
 
@@ -364,7 +400,7 @@ function distribution(pmf, mu, y, phi) {
   function draw() {
     const W = chart.clientWidth;
     if (!W) return;
-    const H = 170, m = { t: 30, r: 6, b: 22, l: 30 };
+    const m = { t: 30, r: 6, b: lines.length ? 31 : 22, l: 30 }, H = 148 + m.b;
     const pw = W - m.l - m.r, ph = H - m.t - m.b;
     const n = kmax - kmin + 1, band = pw / n;
     x = (k) => m.l + (k - kmin + 0.5) * band;
@@ -399,6 +435,14 @@ function distribution(pmf, mu, y, phi) {
       bars.push({ k, el: bar });
     }
     s.append(svg("line", { class: "base-line", x1: m.l, x2: W - m.r, y1: m.t + ph, y2: m.t + ph }));
+
+    // a diamond under the axis at every value-bet line
+    for (const v of new Set(lines)) {
+      const cx = x(v), cy = m.t + ph + 7;
+      const d = svg("path", { class: "bet-mark", d: `M${cx},${cy - 4.5}l4,4.5l-4,4.5l-4,-4.5z` });
+      d.addEventListener("click", () => goTo(v));
+      s.append(d);
+    }
 
     const every = n > 30 ? 10 : 5;
     for (let k = Math.ceil(kmin / every) * every; k <= kmax; k += every) {

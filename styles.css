@@ -406,6 +406,38 @@ main { min-height: 320px; }
 
 .chart-legend { display: flex; gap: 14px; margin-top: 2px; font-size: 11px; color: var(--ink-3); }
 
+/* value bets: diamonds under the axis, the list under the chart */
+.bet-mark { fill: var(--c); cursor: pointer; }
+
+.bets { margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); }
+.bets .label { margin-bottom: 6px; }
+.bet {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) repeat(3, minmax(0, 1fr));
+  align-items: baseline;
+  width: 100%;
+  margin: 0;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  font: inherit;
+  font-size: 13px;
+  color: var(--ink-2);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: background .2s;
+}
+.bet > :first-child { text-align: left; color: var(--ink); font-weight: 600; }
+.bet b { font-weight: 700; color: var(--ink); }
+button.bet:hover { background: var(--shade); }
+button.bet:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; }
+.bet.head { padding-top: 0; padding-bottom: 2px; font-size: 11px; color: var(--ink-3); cursor: default; }
+.bet.head > :first-child { color: var(--ink-3); font-weight: 400; }
+.bets-none { margin: 16px 0 0; padding-top: 14px; border-top: 1px solid var(--line); font-size: 13px; color: var(--ink-3); }
+.bets-note { margin: 0 18px 18px; font-size: 12px; font-style: italic; color: var(--ink-3); }
+
 /* slider: its thumb sits exactly under the cut-off line */
 .slider { position: relative; height: 26px; margin-top: 4px; }
 .slider input {
@@ -525,6 +557,7 @@ main { min-height: 320px; }
   .panel::before { left: 14px; right: 14px; }
   .logo, .initials { width: 24px; height: 24px; }
   .panels { grid-template-columns: minmax(0, 1fr); padding: 0 12px 14px; }
+  .bets-note { margin: 0 12px 14px; }
   .footer-grid { grid-template-columns: 1fr; gap: 20px; }
 }
 
