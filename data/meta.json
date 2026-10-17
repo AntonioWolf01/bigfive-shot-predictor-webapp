@@ -59,7 +59,7 @@
    "upcoming": 10,
    "matches": 88,
    "upcoming_matches": 9,
-   "predicted": 84
+   "predicted": 85
   },
   {
    "div": "I1",
@@ -86,7 +86,7 @@
    "upcoming": 8,
    "matches": 70,
    "upcoming_matches": 9,
-   "predicted": 69
+   "predicted": 70
   },
   {
    "div": "D1",
@@ -111,7 +111,7 @@
    "upcoming": 7,
    "matches": 54,
    "upcoming_matches": 8,
-   "predicted": 50
+   "predicted": 51
   },
   {
    "div": "F1",
@@ -138,7 +138,7 @@
    "upcoming": 8,
    "matches": 63,
    "upcoming_matches": 8,
-   "predicted": 59
+   "predicted": 60
   }
  ]
 }
