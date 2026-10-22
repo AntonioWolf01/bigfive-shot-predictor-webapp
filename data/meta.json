@@ -1,7 +1,7 @@
 {
  "season": "2026/27",
- "updated": "2026-10-19",
- "last_match": "2026-10-16",
+ "updated": "2026-10-22",
+ "last_match": "2026-10-21",
  "phi": 1.6127,
  "leagues": [
   {
@@ -23,11 +23,12 @@
     3,
     4,
     5,
-    6
+    6,
+    7
    ],
    "upcoming": 8,
    "matches": 70,
-   "upcoming_matches": 10,
+   "upcoming_matches": 0,
    "predicted": 67
   },
   {
@@ -57,9 +58,9 @@
     9
    ],
    "upcoming": 10,
-   "matches": 88,
-   "upcoming_matches": 9,
-   "predicted": 85
+   "matches": 89,
+   "upcoming_matches": 0,
+   "predicted": 86
   },
   {
    "div": "I1",
@@ -85,7 +86,7 @@
    ],
    "upcoming": 8,
    "matches": 70,
-   "upcoming_matches": 9,
+   "upcoming_matches": 0,
    "predicted": 70
   },
   {
@@ -110,7 +111,7 @@
    ],
    "upcoming": 7,
    "matches": 54,
-   "upcoming_matches": 8,
+   "upcoming_matches": 0,
    "predicted": 51
   },
   {
@@ -137,7 +138,7 @@
    ],
    "upcoming": 8,
    "matches": 63,
-   "upcoming_matches": 8,
+   "upcoming_matches": 0,
    "predicted": 60
   }
  ]
