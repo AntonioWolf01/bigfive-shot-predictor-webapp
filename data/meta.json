@@ -1,6 +1,6 @@
 {
  "season": "2026/27",
- "updated": "2026-10-22",
+ "updated": "2026-10-23",
  "last_match": "2026-10-21",
  "phi": 1.6127,
  "leagues": [
@@ -15,7 +15,8 @@
     4,
     5,
     6,
-    7
+    7,
+    8
    ],
    "played_weeks": [
     1,
@@ -26,10 +27,10 @@
     6,
     7
    ],
-   "upcoming": 8,
-   "matches": 70,
-   "upcoming_matches": 0,
-   "predicted": 67
+   "upcoming": 9,
+   "matches": 80,
+   "upcoming_matches": 10,
+   "predicted": 77
   },
   {
    "div": "SP1",
@@ -44,7 +45,8 @@
     6,
     7,
     8,
-    9
+    9,
+    10
    ],
    "played_weeks": [
     1,
@@ -57,10 +59,10 @@
     8,
     9
    ],
-   "upcoming": 10,
-   "matches": 89,
-   "upcoming_matches": 0,
-   "predicted": 86
+   "upcoming": 11,
+   "matches": 99,
+   "upcoming_matches": 10,
+   "predicted": 96
   },
   {
    "div": "I1",
@@ -73,7 +75,8 @@
     4,
     5,
     6,
-    7
+    7,
+    8
    ],
    "played_weeks": [
     1,
@@ -84,10 +87,10 @@
     6,
     7
    ],
-   "upcoming": 8,
-   "matches": 70,
-   "upcoming_matches": 0,
-   "predicted": 70
+   "upcoming": 9,
+   "matches": 80,
+   "upcoming_matches": 10,
+   "predicted": 80
   },
   {
    "div": "D1",
@@ -99,7 +102,8 @@
     3,
     4,
     5,
-    6
+    6,
+    7
    ],
    "played_weeks": [
     1,
@@ -109,10 +113,10 @@
     5,
     6
    ],
-   "upcoming": 7,
-   "matches": 54,
-   "upcoming_matches": 0,
-   "predicted": 51
+   "upcoming": 8,
+   "matches": 63,
+   "upcoming_matches": 9,
+   "predicted": 60
   },
   {
    "div": "F1",
@@ -125,7 +129,8 @@
     4,
     5,
     6,
-    7
+    7,
+    8
    ],
    "played_weeks": [
     1,
@@ -136,10 +141,10 @@
     6,
     7
    ],
-   "upcoming": 8,
-   "matches": 63,
-   "upcoming_matches": 0,
-   "predicted": 60
+   "upcoming": 9,
+   "matches": 72,
+   "upcoming_matches": 9,
+   "predicted": 69
   }
  ]
 }
