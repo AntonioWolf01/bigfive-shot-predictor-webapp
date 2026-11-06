@@ -1,78 +1,13 @@
 {
  "season": "2026/27",
- "updated": "2026-10-31",
- "last_match": "2026-10-30",
+ "updated": "2026-11-06",
+ "last_match": "2026-11-02",
  "phi": 1.6127,
  "leagues": [
   {
    "div": "E0",
    "name": "Premier League",
    "logo": "logos/leagues/E0.png",
-   "weeks": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9
-   ],
-   "played_weeks": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8
-   ],
-   "upcoming": 10,
-   "matches": 90,
-   "upcoming_matches": 10,
-   "predicted": 87
-  },
-  {
-   "div": "SP1",
-   "name": "La Liga",
-   "logo": "logos/leagues/SP1.png",
-   "weeks": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11
-   ],
-   "played_weeks": [
-    1,
-    2,
-    3,
-    4,
-    5,
-    6,
-    7,
-    8,
-    9,
-    10,
-    11
-   ],
-   "upcoming": 12,
-   "matches": 109,
-   "upcoming_matches": 9,
-   "predicted": 105
-  },
-  {
-   "div": "I1",
-   "name": "Serie A",
-   "logo": "logos/leagues/I1.png",
    "weeks": [
     1,
     2,
@@ -99,7 +34,77 @@
    "upcoming": 11,
    "matches": 100,
    "upcoming_matches": 10,
-   "predicted": 100
+   "predicted": 97
+  },
+  {
+   "div": "SP1",
+   "name": "La Liga",
+   "logo": "logos/leagues/SP1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "upcoming": 13,
+   "matches": 119,
+   "upcoming_matches": 10,
+   "predicted": 116
+  },
+  {
+   "div": "I1",
+   "name": "Serie A",
+   "logo": "logos/leagues/I1.png",
+   "weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11
+   ],
+   "played_weeks": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10
+   ],
+   "upcoming": 12,
+   "matches": 110,
+   "upcoming_matches": 10,
+   "predicted": 110
   },
   {
    "div": "D1",
@@ -113,7 +118,8 @@
     5,
     6,
     7,
-    8
+    8,
+    9
    ],
    "played_weeks": [
     1,
@@ -125,10 +131,10 @@
     7,
     8
    ],
-   "upcoming": 9,
-   "matches": 72,
-   "upcoming_matches": 8,
-   "predicted": 68
+   "upcoming": 10,
+   "matches": 81,
+   "upcoming_matches": 9,
+   "predicted": 78
   },
   {
    "div": "F1",
@@ -143,7 +149,8 @@
     6,
     7,
     8,
-    9
+    9,
+    10
    ],
    "played_weeks": [
     1,
@@ -156,10 +163,10 @@
     8,
     9
    ],
-   "upcoming": 10,
-   "matches": 81,
-   "upcoming_matches": 6,
-   "predicted": 75
+   "upcoming": 11,
+   "matches": 90,
+   "upcoming_matches": 9,
+   "predicted": 87
   }
  ]
 }
