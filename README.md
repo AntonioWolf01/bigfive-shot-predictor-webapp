@@ -1,12 +1,13 @@
-# Big Five Shot Predictor
+# Shot Predictor
 
 A machine learning model that predicts the full distribution of shots for every team,
 in every match of Europe's top five leagues (Premier League, La Liga, Serie A,
 Bundesliga, Ligue 1).
 
-Open a match to see each team's forecast: the bars are the chance of each exact number
-of shots, the black bar is the real one. Drag the slider to set a line and read the
-chance of going over or under it.
+Each league opens on its latest week; pick another from the row of weeks (or the slider
+under it, when they don't all fit). Open a match to see each team's forecast: the bars
+are the chance of each exact number of shots, the black bar is the real one. Drag the
+slider to set a line and read the chance of going over or under it.
 
 ## About the model
 

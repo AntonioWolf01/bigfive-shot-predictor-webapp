@@ -63,13 +63,15 @@ button, input { font: inherit; color: inherit; }
 
 .masthead { text-align: center; }
 
+/* the season, light and widely spaced; the padding balances the last letter's spacing */
 .eyebrow {
-  margin: 0 0 14px;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: .12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+  margin: 0 0 12px;
+  padding-left: .55em;
+  font-size: 16px;
+  font-weight: 300;
+  letter-spacing: .55em;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
 }
 
 h1 {
@@ -136,16 +138,29 @@ h1 {
 
 /* ------------------------------------------------------------------- weeks */
 
+.weeks-bar { margin: 18px 0 0; padding: 0 0 18px; border-bottom: 1px solid var(--line); }
+
 .weeks {
   display: flex;
   gap: 6px;
-  margin: 18px 0 0;
-  padding: 0 0 18px;
-  border-bottom: 1px solid var(--line);
   overflow-x: auto;
   scrollbar-width: none;
 }
 .weeks::-webkit-scrollbar { display: none; }
+
+/* the slider under the weeks, shown only when they do not all fit */
+.weeks-scroll { margin-top: 10px; }
+.weeks-scroll[hidden] { display: none; }
+.weeks-scroll input {
+  display: block;
+  width: 100%;
+  height: 22px;
+  margin: 0;
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  cursor: pointer;
+}
 
 .week {
   flex: 0 0 auto;
@@ -381,7 +396,6 @@ main { min-height: 320px; }
 .key.over { background: var(--c); }
 .key.under { background: var(--c-tint); }
 .key.act { background: var(--ink); }
-.key.exp { width: 0; height: 0; border-radius: 0; background: none; border-left: 4.5px solid transparent; border-right: 4.5px solid transparent; border-top: 6px solid var(--ink); vertical-align: 1px; }
 
 .chart { position: relative; width: 100%; min-width: 0; overflow: hidden; }
 .chart svg { display: block; width: 100%; overflow: visible; }
@@ -450,10 +464,13 @@ button.bet:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; 
   appearance: none;
   cursor: pointer;
 }
-.slider input:focus { outline: none; }
-.slider input::-webkit-slider-runnable-track { height: 2px; border-radius: 2px; background: var(--line-2); }
-.slider input::-moz-range-track { height: 2px; border-radius: 2px; background: var(--line-2); }
-.slider input::-webkit-slider-thumb {
+.slider input:focus, .weeks-scroll input:focus { outline: none; }
+.slider input::-webkit-slider-runnable-track,
+.weeks-scroll input::-webkit-slider-runnable-track { height: 2px; border-radius: 2px; background: var(--line-2); }
+.slider input::-moz-range-track,
+.weeks-scroll input::-moz-range-track { height: 2px; border-radius: 2px; background: var(--line-2); }
+.slider input::-webkit-slider-thumb,
+.weeks-scroll input::-webkit-slider-thumb {
   -webkit-appearance: none;
   width: 18px; height: 18px;
   margin-top: -8px;
@@ -463,15 +480,18 @@ button.bet:focus-visible { outline: 2px solid var(--ink); outline-offset: -2px; 
   box-shadow: 0 0 0 1px var(--ink), 0 2px 6px rgba(0, 0, 0, .18);
   transition: transform .15s;
 }
-.slider input::-moz-range-thumb {
+.slider input::-moz-range-thumb,
+.weeks-scroll input::-moz-range-thumb {
   width: 12px; height: 12px;
   border-radius: 50%;
   background: var(--ink);
   border: 3px solid #fff;
   box-shadow: 0 0 0 1px var(--ink), 0 2px 6px rgba(0, 0, 0, .18);
 }
-.slider input:active::-webkit-slider-thumb { transform: scale(1.15); }
-.slider input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(17, 17, 17, .15); }
+.slider input:active::-webkit-slider-thumb,
+.weeks-scroll input:active::-webkit-slider-thumb { transform: scale(1.15); }
+.slider input:focus-visible::-webkit-slider-thumb,
+.weeks-scroll input:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 1px var(--ink), 0 0 0 5px rgba(17, 17, 17, .15); }
 
 /* ----------------------------------------------------------------- tooltip */
 

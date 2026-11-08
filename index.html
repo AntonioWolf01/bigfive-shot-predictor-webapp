@@ -6,10 +6,10 @@
   <!-- Security: only files from this site may load or run; no third parties, no forms. -->
   <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; font-src 'self'; img-src 'self'; connect-src 'self'; base-uri 'none'; form-action 'none'; upgrade-insecure-requests">
   <meta name="referrer" content="strict-origin-when-cross-origin">
-  <title>Big Five Shot Predictor</title>
+  <title>Shot Predictor</title>
   <meta name="description" content="A machine learning model that predicts the full distribution of shots for every team in the Premier League, La Liga, Serie A, Bundesliga and Ligue 1, compared with what actually happened.">
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Big Five Shot Predictor">
+  <meta property="og:title" content="Shot Predictor">
   <meta property="og:description" content="A machine learning model that predicts how many shots every team will take in Europe's top five leagues, compared with what actually happened.">
   <meta property="og:url" content="https://antoniowolf01.github.io/bigfive-shot-predictor-webapp/">
   <meta property="og:image" content="https://antoniowolf01.github.io/bigfive-shot-predictor-webapp/og-image.png">
@@ -22,14 +22,19 @@
 <body>
   <div class="page">
     <header class="masthead">
-      <p class="eyebrow" id="season">2026/27</p>
-      <h1 id="title">Big Five Shot Predictor</h1>
+      <p class="eyebrow" id="season">2026/2027</p>
+      <h1 id="title">Shot Predictor</h1>
       <p class="lede" id="subtitle">A machine learning model that predicts the full distribution of
         shots for every team, in every match of Europe's top five leagues.</p>
     </header>
 
     <nav class="leagues" id="leagues" aria-label="League"></nav>
-    <nav class="weeks" id="weeks" aria-label="Matchday"></nav>
+    <div class="weeks-bar">
+      <nav class="weeks" id="weeks" aria-label="Matchday"></nav>
+      <div class="weeks-scroll" id="weeks-scroll" hidden>
+        <input type="range" min="0" max="1000" step="1" value="0" aria-label="Scroll through the weeks">
+      </div>
+    </div>
 
     <main id="content" aria-live="polite">
       <p class="status">Loading…</p>

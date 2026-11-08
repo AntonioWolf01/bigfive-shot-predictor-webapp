@@ -60,6 +60,8 @@ function when(m) {
     time: d.toLocaleTimeString([], { hour: "numeric", minute: "2-digit" }),
   };
 }
+/** Whether the match has kicked off (by the end of its day, when the time is unknown). */
+const started = (m) => new Date(m.kickoff || `${m.date}T23:59`) <= new Date();
 const fmtLong = (iso) => { const d = parseDate(iso); return `${d.getDate()} ${MONTHS_LONG[d.getMonth()]} ${d.getFullYear()}`; };
 
 function fmtRange(a, b) {
@@ -170,15 +172,31 @@ function renderWeeks() {
   nav.replaceChildren(...chips);
   const on = nav.querySelector('[aria-pressed="true"]');
   if (on) on.scrollIntoView({ block: "nearest", inline: "center" });
+  state.syncWeeks?.();
 }
 
-function selectLeague(div) {
+/** The slider under the weeks: scrolls the row of weeks when they do not all fit. */
+function weekScroller() {
+  const nav = $("#weeks"), wrap = $("#weeks-scroll"), range = wrap.querySelector("input");
+  const room = () => nav.scrollWidth - nav.clientWidth;
+  const sync = () => {
+    wrap.hidden = room() < 10;                       // a few pixels short is not worth a slider
+    if (!wrap.hidden) range.value = Math.round((1000 * nav.scrollLeft) / room());
+  };
+  range.addEventListener("input", () => { nav.scrollLeft = (range.value / 1000) * room(); });
+  nav.addEventListener("scroll", sync, { passive: true });
+  new ResizeObserver(sync).observe(nav);
+  state.syncWeeks = sync;
+}
+
+/** `week`: the one a link asks for; otherwise the league's last week with matches,
+ *  the one with the newest fixtures. */
+function selectLeague(div, week = null) {
   const lg = state.meta.leagues.find((l) => l.div === div) || state.meta.leagues[0];
   if (state.league && state.league !== lg) state.match = null;
   state.league = lg;
-  const want = state.week;
-  const latest = lg.played_weeks[lg.played_weeks.length - 1] ?? lg.weeks[lg.weeks.length - 1] ?? lg.upcoming;
-  state.week = lg.weeks.includes(want) || want === lg.upcoming ? want : latest;
+  const latest = lg.weeks[lg.weeks.length - 1] ?? lg.upcoming;
+  state.week = lg.weeks.includes(week) || (week != null && week === lg.upcoming) ? week : latest;
   renderLeagues();
   renderWeeks();
   renderContent();
@@ -224,7 +242,7 @@ async function renderContent() {
   main.replaceChildren(
     el("div", { class: "week-head" },
       el("h2", { text: `Week ${week}` }),
-      el("span", { text: `${fmtRange(dates[0], dates[dates.length - 1])} · ${matches.length} matches` })),
+      el("span", { text: fmtRange(dates[0], dates[dates.length - 1]) })),
     el("div", { class: "matches" }, matches.map(matchCard)));
 
   // a link to one match (#/E0/5/<id>) opens it
@@ -273,7 +291,8 @@ function toggle(card, row, m) {
     const nBets = (m.home.bets || []).length + (m.away.bets || []).length;
     if (m.odds && nBets) inner.append(el("p", { class: "bets-note", text: BETS_NOTE }));
     else if (m.odds) inner.append(el("p", { class: "note", text: "No value bets available for this match." }));
-    else if (!m.played) inner.append(el("p", { class: "note", text: "Odds not published yet." }));
+    else if (!m.played) inner.append(el("p", { class: "note",
+      text: started(m) ? "Result not in yet." : "Odds not published yet." }));
   }
   const open = !card.classList.contains("open");
   card.classList.toggle("open", open);
@@ -378,9 +397,8 @@ function distribution(pmf, mu, y, phi, bets = null) {
     "aria-label": "Shots line",
   });
   const sliderWrap = el("div", { class: "slider" }, slider);
-  const legend = el("div", { class: "chart-legend" },
-    y == null ? null : el("span", {}, el("span", { class: "key act" }), "Actual shots"),
-    el("span", {}, el("span", { class: "key exp" }), "Expected shots"));
+  const legend = y == null ? null : el("div", { class: "chart-legend" },
+    el("span", {}, el("span", { class: "key act" }), "Actual shots"));
 
   const goTo = (v) => { slider.value = v; setLine(v); };
   const block = el("div", { class: "chart-block" }, readout, chart, sliderWrap, legend,
@@ -538,21 +556,20 @@ async function boot() {
     return;
   }
   const meta = state.meta;
-  $("#season").textContent = meta.season;
-  $("#updated").textContent = (meta.last_match ? `Results up to ${fmtLong(meta.last_match)} · ` : "")
-    + `updated ${fmtLong(meta.updated)}`;
+  // "2026/27" -> "2026/2027"
+  $("#season").textContent = meta.season.replace(/^(\d\d)(\d\d)\/(\d\d)$/, "$1$2/$1$3");
+  $("#updated").textContent = meta.last_match ? `Results up to ${fmtLong(meta.last_match)}` : "";
+  weekScroller();
   const { div, week, match } = readHash();
-  state.week = week;
   state.match = match;
-  selectLeague(div);
+  selectLeague(div, week);
 }
 
 addEventListener("hashchange", () => {
   const { div, week, match } = readHash();
   if (!state.meta || (div === state.league?.div && week === state.week)) return;
-  state.week = week;
   state.match = match;
-  selectLeague(div);
+  selectLeague(div, week);
 });
 
 boot();
