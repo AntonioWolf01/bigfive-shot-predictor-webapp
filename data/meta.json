@@ -34,7 +34,7 @@
    ],
    "upcoming": 11,
    "matches": 100,
-   "upcoming_matches": 5,
+   "upcoming_matches": 0,
    "predicted": 97
   },
   {
@@ -71,7 +71,7 @@
    ],
    "upcoming": 13,
    "matches": 119,
-   "upcoming_matches": 5,
+   "upcoming_matches": 3,
    "predicted": 116
   },
   {
@@ -106,7 +106,7 @@
    ],
    "upcoming": 12,
    "matches": 110,
-   "upcoming_matches": 4,
+   "upcoming_matches": 1,
    "predicted": 110
   },
   {
@@ -137,7 +137,7 @@
    ],
    "upcoming": 10,
    "matches": 81,
-   "upcoming_matches": 3,
+   "upcoming_matches": 1,
    "predicted": 78
   },
   {
@@ -170,7 +170,7 @@
    ],
    "upcoming": 11,
    "matches": 90,
-   "upcoming_matches": 6,
+   "upcoming_matches": 3,
    "predicted": 87
   }
  ]
